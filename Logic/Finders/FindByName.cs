@@ -12,6 +12,7 @@ namespace Logic.Finders
         /// <param name="name">Book name.</param>
         public FindByName(string name)
         {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException($"{nameof(name)} is null or empty.");
             this.name = name;
         }
 
@@ -22,6 +23,7 @@ namespace Logic.Finders
         /// <returns>True, if book's name and given name are equal, and false otherwise.</returns>
         public bool Find(Book book)
         {
+            if (ReferenceEquals(book, null)) throw new ArgumentNullException($"{nameof(book)} is null.");
             return book.Name == name;
         }
     }
