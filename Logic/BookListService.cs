@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Logic
 {
-    public class BookListService : IEnumerable<Book>
+    public class BookListService
     {
         #region private fields
         private List<Book> bookList;
@@ -24,9 +24,14 @@ namespace Logic
         /// Ctor with parameters.
         /// </summary>
         /// <param name="bookList">List of Book instances.</param>
-        public BookListService(List<Book> bookList)
+        public BookListService(IEnumerable<Book> bookList)
         {
-            this.bookList = bookList;
+            if (ReferenceEquals(bookList, null)) throw new ArgumentException($"{nameof(bookList)} is null.");
+
+            foreach (Book b in bookList)
+            {
+                this.AddBook(b);
+            }
         }
         #endregion
 
@@ -39,6 +44,7 @@ namespace Logic
         /// <param name="book">Book instance.</param>
         public void AddBook(Book book)
         {
+            if (ReferenceEquals(book, null)) throw new ArgumentException($"{nameof(book)} is null.");
             if (bookList.Contains(book)) throw new ArgumentException($"{nameof(book)} exists.");
             bookList.Add(book);
         }
@@ -49,6 +55,7 @@ namespace Logic
         /// <param name="book">Book instance.</param>
         public void RemoveBook(Book book)
         {
+            if (ReferenceEquals(book, null)) throw new ArgumentException($"{nameof(book)} is null.");
             if (!bookList.Contains(book)) throw new ArgumentException($"{nameof(book)} does not exist.");
             bookList.Remove(book);
         }
@@ -60,7 +67,8 @@ namespace Logic
         /// <returns>Book, if it found, and null otherwise.</returns>
         public Book FindBookByTag(IFinder finder) 
         {
-            foreach (var b in bookList)
+            if (ReferenceEquals(finder, null)) throw new ArgumentException($"{nameof(finder)} is null.");
+            foreach (Book b in bookList)
             {
                 if (finder.Find(b))
                     return b;
@@ -72,27 +80,10 @@ namespace Logic
         /// Sorts list of books by given criteria.
         /// </summary>
         /// <param name="comparer">Criteria for sorting.</param>
-        public void SortBooksByTag(IComparer comparer)
+        public void SortBooksByTag(IComparer<Book> comparer)
         {
-            Book temp = null;
-            Book[] arr = bookList.ToArray();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                for (int j = 0; j < arr.Length-1; j++)
-                {
-                    if(comparer.Compare(arr[j], arr[j + 1]) > 0)
-                    {
-                        temp = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = temp;
-                    }
-                }
-            }
-            bookList.Clear();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                this.AddBook(arr[i]);
-            }
+            if (ReferenceEquals(comparer, null)) throw new ArgumentException($"{nameof(comparer)} is null.");
+            this.bookList.Sort(comparer);
         }
         #endregion
 
@@ -103,6 +94,7 @@ namespace Logic
         /// <param name="storage">Storage to saving.</param>
         public void SaveToStorage(IBookStorage storage) 
         {
+            if (ReferenceEquals(storage, null)) throw new ArgumentException($"{nameof(storage)} is null.");
             storage.WriteToStorage(bookList);
         }
 
@@ -112,7 +104,9 @@ namespace Logic
         /// <param name="storage">Storage to loading.</param>
         public void LoadFromStorage(IBookStorage storage) 
         {
-            List<Book> bookList = storage.ReadFromStorage();
+            if (ReferenceEquals(storage, null)) throw new ArgumentException($"{nameof(storage)} is null.");
+
+            IEnumerable<Book> bookList = storage.ReadFromStorage();
             foreach (Book b in bookList)
             {
                 this.AddBook(b);
@@ -120,29 +114,7 @@ namespace Logic
         }
         #endregion
 
-        #region enumerators
-        /// <summary>
-        /// Enumerator to iterate over the list.
-        /// </summary>
-        /// <returns>IEnumerator object.</returns>
-        public IEnumerator<Book> GetEnumerator()
-        {
-            foreach(var book in bookList)
-            {
-                yield return book;
-            }
-        }
-
-        /// <summary>
-        /// Enumerator to iterate over the list.
-        /// </summary>
-        /// <returns>IEnumerator object.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-        #endregion
-
+        #region tostring
         /// <summary>
         /// Returns string representation of an object.
         /// </summary>
@@ -159,6 +131,7 @@ namespace Logic
             str.Append("-----------");
             return str.ToString();
         }
+        #endregion
 
         #endregion
 

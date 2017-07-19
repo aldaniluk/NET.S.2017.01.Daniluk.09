@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Logic.Comparers
 {
-    public class PagesComparer : IComparer
+    public class PagesComparer : IComparer<Book>
     {
         /// <summary>
         /// In the order of increasing books' quantity of pages.

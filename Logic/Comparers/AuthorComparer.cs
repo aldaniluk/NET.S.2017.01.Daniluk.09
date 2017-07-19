@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Logic.Comparers
 {
-    public class AuthorComparer : IComparer
+    public class AuthorComparer : IComparer<Book>
     {
         /// <summary>
         /// In the order of increasing authors' names.

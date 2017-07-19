@@ -20,7 +20,7 @@ namespace Logic
         /// <param name="path">Path to file.</param>
         public BookBinaryFileStorage(string path)
         {
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException($"{nameof(path)} is null.");
+            CheckPath(path);
             Path = path;
         }
         #endregion
@@ -30,7 +30,7 @@ namespace Logic
         /// Reads info about books from file.
         /// </summary>
         /// <returns>List of Book instances, read from the file.</returns>
-        public List<Book> ReadFromStorage()
+        public IEnumerable<Book> ReadFromStorage()
         {
             List<Book> bookList = new List<Book>();
             string name, author;
@@ -56,7 +56,7 @@ namespace Logic
         /// Writes books to file.
         /// </summary>
         /// <param name="bookList">List of Book to write to file.</param>
-        public void WriteToStorage(List<Book> bookList)
+        public void WriteToStorage(IEnumerable<Book> bookList)
         {
             if (ReferenceEquals(bookList, null)) throw new ArgumentNullException($"{nameof(bookList)} is null.");
 
@@ -70,6 +70,14 @@ namespace Logic
                     writer.Write(b.Pages);
                 }
             }
+        }
+        #endregion
+
+        #region private methods
+        private void CheckPath(string path)
+        {
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException($"{nameof(path)} is null.");
+            if (!File.Exists(path)) throw new ArgumentNullException($"{nameof(path)} does not exist.");
         }
         #endregion
     }

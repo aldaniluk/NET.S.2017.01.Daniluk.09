@@ -2,7 +2,7 @@
 
 namespace Logic
 {
-    public interface IComparer
+    public interface IComparer<Book>
     {
         int Compare(Book lhs, Book rhs);
     }

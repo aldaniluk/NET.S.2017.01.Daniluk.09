@@ -5,7 +5,16 @@ namespace Logic
 {
     public interface IBookStorage
     {
-        List<Book> ReadFromStorage();
-        void WriteToStorage(List<Book> bookList);
+        /// <summary>
+        /// Reads info from storage.
+        /// </summary>
+        /// <returns>Collection of objects.</returns>
+        IEnumerable<Book> ReadFromStorage();
+
+        /// <summary>
+        /// Writes info to storage.
+        /// </summary>
+        /// <param name="bookList">Collection of objects.</param>
+        void WriteToStorage(IEnumerable<Book> bookList);
     }
 }

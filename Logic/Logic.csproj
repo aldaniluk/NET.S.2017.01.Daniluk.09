@@ -51,7 +51,6 @@
     <Compile Include="Storage\BookBinaryFileStorage.cs" />
     <Compile Include="BookListService.cs" />
     <Compile Include="Storage\IBookStorage.cs" />
-    <Compile Include="Comparers\IComparer.cs" />
     <Compile Include="Finders\IFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

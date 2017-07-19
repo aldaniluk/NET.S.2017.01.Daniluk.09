@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logic
 {
-    public class Book : IEquatable<Book>
+    public class Book : IEquatable<Book>, IComparable, IComparable<Book>
     {
         #region properties
         /// <summary>
@@ -58,8 +58,9 @@ namespace Logic
         /// <param name="rhs">Another book to compare.</param>
         /// <param name="comparer">Criteria for comparison.</param>
         /// <returns>-1, if left book is less; 1, if greater; 0, if they are equal.</returns>
-        public static int Compare(Book lhs, Book rhs, IComparer comparer)
+        public static int Compare(Book lhs, Book rhs, IComparer<Book> comparer)
         {
+            if (ReferenceEquals(comparer, null)) throw new ArgumentNullException($"{nameof(comparer)} is null.");
             return comparer.Compare(lhs, rhs);
         }
         #endregion
@@ -98,6 +99,28 @@ namespace Logic
             {
                 return Pages * 3 + Year * 5 + Author.Length * 7 + Name.Length * 11;
             }
+        }
+
+        /// <summary>
+        /// Compares two books by authors.
+        /// </summary>
+        /// <param name="obj">Object to compare.</param>
+        /// <returns>-1, if object is less than parameter book; 1, if greater; 0, if they are equal.</returns>
+        int IComparable.CompareTo(object obj)
+        {
+            if (ReferenceEquals(obj, null)) throw new ArgumentNullException($"{nameof(obj)} is null.");
+            return this.CompareTo(obj as Book);
+        }
+
+        /// <summary>
+        /// Compares two books by authors.
+        /// </summary>
+        /// <param name="obj">Book to compare.</param>
+        /// <returns>-1, if book is less than parameter book; 1, if greater; 0, if they are equal.</returns>
+        public int CompareTo(Book book)
+        {
+            if (ReferenceEquals(book, null)) throw new ArgumentNullException($"{nameof(book)} is null.");
+            return this.Author.CompareTo(book.Author);
         }
 
         /// <summary>
