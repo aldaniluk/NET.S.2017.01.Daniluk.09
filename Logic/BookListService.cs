@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +18,9 @@ namespace Logic
         /// </summary>
         public BookListService()
         {
+            ILogService logger = new NLogService();
             bookList = new List<Book>();
+            logger.InfoWriteToLog(DateTime.Now, "creating BookListService instance", "BookListService instance was created.");
         }
 
         /// <summary>
@@ -26,12 +29,14 @@ namespace Logic
         /// <param name="bookList">List of Book instances.</param>
         public BookListService(IEnumerable<Book> bookList)
         {
+            ILogService logger = new NLogService();
             if (ReferenceEquals(bookList, null)) throw new ArgumentException($"{nameof(bookList)} is null.");
 
             foreach (Book b in bookList)
             {
                 this.AddBook(b);
             }
+            logger.InfoWriteToLog(DateTime.Now, "creating BookListService instance", "BookListService instance was created.");
         }
         #endregion
 
