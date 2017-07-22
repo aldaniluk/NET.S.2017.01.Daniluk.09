@@ -10,15 +10,23 @@ namespace Logic
     {
         #region private fields
         private List<Book> bookList;
+        private ILogService logger;
         #endregion
 
         #region ctors
         /// <summary>
         /// Ctor without parameters.
         /// </summary>
-        public BookListService()
+        public BookListService() : this(new NLogService()) { }
+
+        /// <summary>
+        /// Ctor with parameter.
+        /// </summary>
+        /// <param name="logger">Logger.</param>
+        public BookListService(ILogService logger)
         {
-            ILogService logger = new NLogService();
+            this.logger = ReferenceEquals(logger, null) ? new NLogService() : logger;
+
             bookList = new List<Book>();
             logger.InfoWriteToLog(DateTime.Now, "creating BookListService instance", "BookListService instance was created.");
         }
@@ -27,9 +35,11 @@ namespace Logic
         /// Ctor with parameters.
         /// </summary>
         /// <param name="bookList">List of Book instances.</param>
-        public BookListService(IEnumerable<Book> bookList)
+        /// <param name="logger">Logger.</param>
+        public BookListService(IEnumerable<Book> bookList, ILogService logger = null)
         {
-            ILogService logger = new NLogService();
+            this.logger = ReferenceEquals(logger, null) ? new NLogService() : logger;
+
             if (ReferenceEquals(bookList, null)) throw new ArgumentException($"{nameof(bookList)} is null.");
 
             foreach (Book b in bookList)
