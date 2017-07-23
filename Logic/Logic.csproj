@@ -56,6 +56,8 @@
     <Compile Include="Logging\NLogService.cs" />
     <Compile Include="Storage\BookBinaryFileStorage.cs" />
     <Compile Include="BookListService.cs" />
+    <Compile Include="Storage\BookBinarySerializatorStorage.cs" />
+    <Compile Include="Storage\BookXmlFileStorage.cs" />
     <Compile Include="Storage\IBookStorage.cs" />
     <Compile Include="Finders\IFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

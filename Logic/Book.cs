@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Logic
 {
+    [Serializable]
+    //[XmlRoot("Book")]
     public class Book : IEquatable<Book>, IComparable, IComparable<Book>
     {
         #region properties
         /// <summary>
         /// Book name.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Book author.
         /// </summary>
-        public string Author { get; }
+        public string Author { get; set; }
 
         /// <summary>
         /// Year of publishing.
         /// </summary>
-        public int Year { get; }
+        public int Year { get; set; }
 
         /// <summary>
         /// Number of pages.
         /// </summary>
-        public int Pages { get; }
+        public int Pages { get; set; }
         #endregion
 
         #region private static fields
@@ -34,6 +37,10 @@ namespace Logic
         #endregion
 
         #region ctors
+        public Book()
+        {
+
+        }
         /// <summary>
         /// Ctor for Book instance.
         /// </summary>
