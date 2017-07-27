@@ -71,18 +71,28 @@ namespace ConsoleApp
                 Console.WriteLine(newService);
 
 
-                Console.WriteLine("Write to binary file (for serialization and deserialization");
+                Console.WriteLine("Write to binary file (for serialization and deserialization)");
                 IBookStorage binarySerializStorage = new BookBinarySerializatorStorage(@"..\..\..\data\BooksSerializ.txt");
                 service.SaveToStorage(binarySerializStorage);
-                Console.WriteLine("Read from binary file (for serialization and deserialization");
+                Console.WriteLine("Read from binary file (for serialization and deserialization)");
                 BookListService binSerializService = new BookListService();
                 binSerializService.LoadFromStorage(binarySerializStorage);
                 Console.WriteLine(binSerializService);
 
-                Console.WriteLine("Write to xml file (for serialization and deserialization");
+                //XML with serialization
+                //Console.WriteLine("Write to xml file (for serialization and deserialization)");
+                //IBookStorage xmlStorage = new BookXmlSerializationStorage(@"..\..\..\data\BooksSerializXml.xml");
+                //service.SaveToStorage(xmlStorage);
+                //Console.WriteLine("Read from binary file (for serialization and deserialization");
+                //BookListService xmlService = new BookListService();
+                //xmlService.LoadFromStorage(xmlStorage);
+                //Console.WriteLine(xmlService);
+
+                //XML without serialization
+                Console.WriteLine("Write to xml file");
                 IBookStorage xmlStorage = new BookXmlFileStorage(@"..\..\..\data\BooksXml.xml");
                 service.SaveToStorage(xmlStorage);
-                Console.WriteLine("Read from binary file (for serialization and deserialization");
+                Console.WriteLine("Read from binary file");
                 BookListService xmlService = new BookListService();
                 xmlService.LoadFromStorage(xmlStorage);
                 Console.WriteLine(xmlService);

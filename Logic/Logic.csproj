@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,7 @@
     <Compile Include="BookListService.cs" />
     <Compile Include="Storage\BookBinarySerializatorStorage.cs" />
     <Compile Include="Storage\BookXmlFileStorage.cs" />
+    <Compile Include="Storage\BookXmlSerializationStorage.cs" />
     <Compile Include="Storage\IBookStorage.cs" />
     <Compile Include="Finders\IFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

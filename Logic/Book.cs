@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Logic
 {
     [Serializable]
-    //[XmlRoot("Book")]
+    [DataContract]
     public class Book : IEquatable<Book>, IComparable, IComparable<Book>
     {
         #region properties
+        [DataMember]
         /// <summary>
         /// Book name.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; /*private set;*/ }
 
+        [DataMember]
         /// <summary>
         /// Book author.
         /// </summary>
-        public string Author { get; set; }
+        public string Author { get; /*private set;*/ }
 
+        [DataMember]
         /// <summary>
         /// Year of publishing.
         /// </summary>
-        public int Year { get; set; }
+        public int Year { get; /*private set;*/ }
 
+        [DataMember]
         /// <summary>
         /// Number of pages.
         /// </summary>
-        public int Pages { get; set; }
+        public int Pages { get; /*private set;*/ }
         #endregion
 
         #region private static fields
